@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PC Builder</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .part { border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px; display: inline-block; width: 200px; }
+    .selected { background-color: #d1ffd1; }
+  </style>
+</head>
+<body>
+  <h1>Simple PC Builder</h1>
+
+  <h2>Select CPU</h2>
+  <div id="cpu-list">
+    <div class="part" onclick="selectPart('cpu', 'Ryzen 5 5600X', 564.00)">
+      <strong>Ryzen 5 5600X</strong><br/>
+      rm564.00
+    </div>
+    <div class="part" onclick="selectPart('cpu', 'Intel i5-12400F', 690.00)">
+      <strong>Intel i5-12400F</strong><br/>
+      rm690.00
+    </div>
+  </div>
+
+  <h2>Select GPU</h2>
+  <div id="gpu-list">
+    <div class="part" onclick="selectPart('gpu', 'RTX 4060', 1785.51)">
+      <strong>RTX 4060</strong><br/>
+      rm1785.51
+    </div>
+    <div class="part" onclick="selectPart('gpu', 'RX 6600', 1205.00)">
+      <strong>RX 6600</strong><br/>
+      rm1205.00
+    </div>
+
+  </div>
+  <h2>Select RAM</h2>
+  <div id="ram-list">
+    <div class="part" onclick="selectPart('ram', 'Corsair Vengeance LPX 16GB', 300.00)">
+      <strong>Corsair Vengeance LPX 16GB</strong><br/>
+      rm300.00
+    </div>
+    <div class="part" onclick="selectPart('ram', 'G.Skill Ripjaws V 16GB', 280.00)">
+      <strong>G.Skill Ripjaws V 16GB</strong><br/>
+      rm280.00
+    </div>
+
+    <h2>Select Storage</h2>
+    <div id="storage-list">
+      <div class="part" onclick="selectPart('storage', 'Samsung 970 EVO Plus 1TB', 450.00)">
+        <strong>Samsung 970 EVO Plus 1TB</strong><br/>
+        rm450.00
+      </div>
+      <div class="part" onclick="selectPart('storage', 'Western Digital Blue 1TB', 250.00)">
+        <strong>Western Digital Blue 1TB</strong><br/>
+        rm250.00
+      </div>
+
+      <h2>Select Power Supply</h2>
+      <div id="psu-list">
+        <div class="part" onclick="selectPart('psu', 'Corsair RM650x', 450.00)">
+          <strong>Corsair RM650x</strong><br/>
+          rm450.00
+        </div>
+        <div class="part" onclick="selectPart('psu', 'Seasonic Focus GX-650', 400.00)">
+          <strong>Seasonic Focus GX-650</strong><br/>
+          rm400.00
+        </div>
+      </div
+      h2>Select Motherboard</h2>
+      <div id="motherboard-list">
+        <div class="part" onclick="selectPart('motherboard', 'ASUS TUF Gaming B550-PLUS', 450.00)">
+          <strong>ASUS TUF Gaming B550-PLUS</strong><br/>
+          rm450.00
+        </div>
+        <div class="part" onclick="selectPart('motherboard', 'MSI B560M PRO-VDH', 400.00)">
+          <strong>MSI B560M PRO-VDH</strong><br/>
+          rm400.00
+        </div>
+    </div>
+
+  </div>
+
+  <h2>Build Summary</h2>
+  <div id="build-summary">
+    CPU: <span id="selected-cpu">None</span><br/>
+    GPU: <span id="selected-gpu">None</span><br/>
+    RAM: <span id="selected-ram">None</span><br/>
+    Storage: <span id="selected-storage">None</span><br/>
+    Power Supply: <span id="selected-psu">None</span><br/>
+    Motherboard: <span id="selected-motherboard">None</span><br/>
+    Total Price: rm<span id="total-price">0</span>
+  </div>
+<button onclick="checkout(window)">Checkout</button>
+  <script>
+    const build = {
+      cpu: null,
+      gpu: null,
+      ram: null,
+      storage: null,
+      psu: null,
+      motherboard: null
+    };
+
+    function selectPart(category, name, price) {
+      // Update the build object
+      build[category] = { name, price };
+
+      // Update summary
+      document.getElementById(`selected-${category}`).textContent = name;
+
+      // Calculate total
+      let total = 0;
+      if (build.cpu) total += build.cpu.price;
+      if (build.gpu) total += build.gpu.price;
+      if (build.ram) total += build.ram.price;
+      if (build.storage) total += build.storage.price;
+      if (build.psu) total += build.psu.price;
+      if (build.motherboard) total += build.motherboard.price;
+      document.getElementById("total-price").textContent = total;
+
+      // highlight selected
+      document.querySelectorAll(`#${category}-list .part`).forEach(div => div.classList.remove('selected'));
+      event.target.closest('.part').classList.add('selected');
+    }
+  </script>
+</body>
+</head>
+<body>
+<button><style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .part { border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px; display: inline-block; width: 200px; }
+    .selected { background-color: #d1ffd1; }
+  </style>cancel</button>
+<script>
+    function cancel() {
+      build.cpu = null;
+      build.gpu = null;
+      document.getElementById("selected-cpu").textContent = "None";
+      document.getElementById("selected-gpu").textContent = "None";
+      document.getElementById("total-price").textContent = "0";
+      document.querySelectorAll('.part').forEach(part => part.classList.remove('selected'));
+      alert("Build has been reset.");
+      cancel(selectPart);
+      delete build.cpu;
+      delete build.gpu;
+      document.getElementById("selected-cpu").textContent = "0";
+      document.getElementById("selected-gpu").textContent = "0";
+    }
+</script>
+
+<script>
+    function checkout(window) {
+      const cpu = build.cpu ? build.cpu.name : "None";
+      const gpu = build.gpu ? build.gpu.name : "None";
+      const ram = build.ram ? build.ram.name : "None";
+      const storage = build.storage ? build.storage.name : "None";
+      const psu = build.psu ? build.psu.name : "None";
+      const motherboard = build.motherboard ? build.motherboard.name : "None";
+      const total = document.getElementById("total-price").textContent;
+
+      alert(`Checkout Summary:\nCPU: ${cpu}\nGPU: ${gpu}\nRAM: ${ram}\nStorage: ${storage}\nPower Supply: ${psu}\nMotherboard: ${motherboard}\nTotal Price: ${total}`);
+    }
+
+    document.querySelectorAll('.part').forEach(part => {
+      part.addEventListener('click', function(event) {
+        event.stopPropagation(scroll); // Prevent event bubbling
+      });
+    });
+</script>
+</html>
+<style>
+  body { background-color: #22819c; }
+  h1, h2 { color: #ffffff; }
+  .part { background-color: #ffffff; color: #000000; }
+  .selected { background-color: #0dff0d; }
+  #build-summary { background-color: #f0f0f0; padding: 10px; border-radius: 5px; }
+</style>
+</head>
