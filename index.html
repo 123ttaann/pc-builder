@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 
-<html>
-<head>
-<html lang="en">
-<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PC Builder</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .part { border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px; display: inline-block; width: 200px; }
-    .selected { background-color: #d1ffd1; }
-  </style>
+  <title>PC Builder with Login</title>
 </head>
 <body>
-  <h1>Simple PC Builder</h1>
+  <button><h1>PC Builder</h1></button>
+  <style>h1 { font-size: 24px; }
+  button { background-color: #22819c; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+  button:hover { background-color: #1a5f7a; }
+  button h1 { text-align: center; }
+  body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+  h2 { color: #333; }
 
+</style>
+
+<style>h1 { font-size: 24px; }
+  button { background-color: #22819c; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+  button:hover { background-color: #1a5f7a; }
+  button h1 { text-align: center; }
+  body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+  h2 { color: #333; }
+
+</style>
+</script>
+<button onclick="location.href='about.html'">About</button>
+
+<style>h1 { font-size: 24px; }
+  button { background-color: #22819c; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+  button:hover { background-color: #1a5f7a; }
+  button h1 { text-align: center; }
+  body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+  h2 { color: #333; }
+  </style>
+
+</div>
   <h2>Select CPU</h2>
   <div id="cpu-list">
     <div class="part" onclick="selectPart('cpu', 'Ryzen 5 5600X', 564.00)">
@@ -97,13 +116,22 @@
     Motherboard: <span id="selected-motherboard">None</span><br/>
     Total Price: rm<span id="total-price">0</span>
   </div>
+
 <button onclick="checkout(window)">Checkout</button>
-  <script>
-    const build = {
-      cpu: null,
-      gpu: null,
-      ram: null,
-      storage: null,
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PC Builder</title>
+  </head>
+  <body>
+    <script>
+      const build = {
+        cpu: null,
+        gpu: null,
+        ram: null,
+        storage: null,
       psu: null,
       motherboard: null
     };
@@ -112,10 +140,10 @@
       // Update the build object
       build[category] = { name, price };
 
-      // Update summary
+     
       document.getElementById(`selected-${category}`).textContent = name;
 
-      // Calculate total
+    
       let total = 0;
       if (build.cpu) total += build.cpu.price;
       if (build.gpu) total += build.gpu.price;
@@ -125,7 +153,6 @@
       if (build.motherboard) total += build.motherboard.price;
       document.getElementById("total-price").textContent = total;
 
-      // highlight selected
       document.querySelectorAll(`#${category}-list .part`).forEach(div => div.classList.remove('selected'));
       event.target.closest('.part').classList.add('selected');
     }
@@ -133,27 +160,42 @@
 </body>
 </head>
 <body>
-<button><style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .part { border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px; display: inline-block; width: 200px; }
-    .selected { background-color: #d1ffd1; }
-  </style>cancel</button>
-<script>
+<button onclick="cancel()">Cancel</button>
+  <script>
     function cancel() {
+      // Reset the build object
       build.cpu = null;
       build.gpu = null;
+      build.ram = null;
+      build.storage = null;
+      build.psu = null;
+      build.motherboard = null;
+
+      // Reset the displayed selections
       document.getElementById("selected-cpu").textContent = "None";
       document.getElementById("selected-gpu").textContent = "None";
+      document.getElementById("selected-ram").textContent = "None";
+      document.getElementById("selected-storage").textContent = "None";
+      document.getElementById("selected-psu").textContent = "None";
+      document.getElementById("selected-motherboard").textContent = "None";
       document.getElementById("total-price").textContent = "0";
+
+      // Remove any highlight
       document.querySelectorAll('.part').forEach(part => part.classList.remove('selected'));
+
       alert("Build has been reset.");
-      cancel(selectPart);
-      delete build.cpu;
-      delete build.gpu;
-      document.getElementById("selected-cpu").textContent = "0";
-      document.getElementById("selected-gpu").textContent = "0";
     }
-</script>
+  </script>
+<style>
+  body { background-color: #22819c; }
+    h1, h2 { color: #ffffff; }
+    .part { background-color: #ffffff; color: #000000; }
+    .selected { background-color: #0dff0d; }
+  #build-summary { background-color: #f0f0f0; padding: 10px; border-radius: 5px; }
+</style>
+</head>
+
+  </script>
 
 <script>
     function checkout(window) {
@@ -177,9 +219,15 @@
 </html>
 <style>
   body { background-color: #22819c; }
-  h1, h2 { color: #ffffff; }
+ h2 { color: #ffffff; }
   .part { background-color: #ffffff; color: #000000; }
   .selected { background-color: #0dff0d; }
   #build-summary { background-color: #f0f0f0; padding: 10px; border-radius: 5px; }
 </style>
-</head>
+  <title>PC Builder</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .part { border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 5px; display: inline-block; width: 200px; }
+    .selected { background-color: #d1ffd1; }
+  </style>
+<body></body>
